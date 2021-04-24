@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }     
+            .ui-carousel {
+                margin-bottom: 20px;
+            }
+        </style>
+        
+            <h:form style="text-align: right">
+                <p:commandLink action="#{lozinkacontroller.redirect_promenalozinke()}">Promena lozinke</p:commandLink>
+                <br/>
+                <p:commandLink action="#{logincontroller.logout()}">Logout</p:commandLink>
+            </h:form>
+
+        <h:form id="form">
+            
+            <p:carousel value="#{admincontroller.korisnici}" headerText="Korisnici" var="korisnik" itemStyle="text-align:center" responsive="true">
+                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        
+                    </f:facet>
+
+                    <h:outputText value="Id:" />
+                    <h:outputText value="#{korisnik.id}" />
+
+                    <h:outputText value="Ime" />
+                    <h:outputText value="#{korisnik.ime}" />
+
+                    <h:outputText value="Prezime" />
+                    <h:outputText value="#{korisnik.prezime}" />
+
+                    <h:outputText value="Korisnicko ime" />
+                    <h:outputText value="#{korisnik.username}" />
+                    
+                    <h:outputText value="Lozinka" />
+                    <h:outputText value="#{korisnik.password}" />
+                    
+                    <h:outputText value="Datum rodjenja" />
+                    <h:outputText value="#{korisnik.datumRodjenja}" />
+                    
+                    <h:outputText value="Mesto rodjenja" />
+                    <h:outputText value="#{korisnik.mestoRodjenja}" />
+                    
+                    <h:outputText value="JMBG:" />
+                    <h:outputText value="#{korisnik.JMBG}" />
+                    
+                    <h:outputText value="Telefon:" />
+                    <h:outputText value="#{korisnik.telefon}" />
+                    
+                    <h:outputText value="E-mail:" />
+                    <h:outputText value="#{korisnik.email}" />
+                    
+                    <h:outputText value="Tip:" />
+                    <h:outputText value="#{korisnik.tip}" />
+                    
+                    <p:commandButton value="Izmeni" action="#{admincontroller.izmeni(korisnik)}" update="form"></p:commandButton>
+                    
+                </p:panelGrid>
+
+                <f:facet name="footer">
+                    <!-- Ukupno ima   korisnika. -->
+                </f:facet>
+            </p:carousel>
+            
+            <p:carousel id="zahtevicarousel" value="#{admincontroller.zahtevi}" headerText="Zahtevi" var="zahtev" itemStyle="text-align:center" responsive="true">
+                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <!-- <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> -->
+                    </f:facet>
+
+                    <h:outputText value="Id:" />
+                    <h:outputText value="#{zahtev.id}" />
+
+                    <h:outputText value="Ime" />
+                    <h:outputText value="#{zahtev.ime}" />
+
+                    <h:outputText value="Prezime" />
+                    <h:outputText value="#{zahtev.prezime}" />
+
+                    <h:outputText value="Korisnicko ime" />
+                    <h:outputText value="#{zahtev.username}" />
+                    
+                    <h:outputText value="Lozinka" />
+                    <h:outputText value="#{zahtev.password}" />
+                    
+                    <h:outputText value="Datum rodjenja" />
+                    <h:outputText value="#{zahtev.datumRodjenja}" />
+                    
+                    <h:outputText value="Mesto rodjenja" />
+                    <h:outputText value="#{zahtev.mestoRodjenja}" />
+                    
+                    <h:outputText value="JMBG:" />
+                    <h:outputText value="#{zahtev.JMBG}" />
+                    
+                    <h:outputText value="Telefon:" />
+                    <h:outputText value="#{zahtev.telefon}" />
+                    
+                    <h:outputText value="E-mail:" />
+                    <h:outputText value="#{zahtev.email}" />
+                    
+                    <h:outputText value="Tip:" />
+                    <h:outputText value="#{zahtev.tip}" />
+                    
+                    <p:commandButton value="Prihvati" action="#{admincontroller.prihvati(zahtev)}" update="form" ></p:commandButton>
+                    <p:commandButton value="Odbij" action="#{admincontroller.odbij(zahtev)}" update="form" ></p:commandButton>
+                    
+                </p:panelGrid>
+
+                <f:facet name="footer">
+                    <!-- Ukupno ima   korisnika. -->
+                </f:facet>
+            </p:carousel>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <style type="text/css">
+            .ui-datatable input {
+                box-sizing: border-box;
+                width: 100%;
+                -webkit-box-shadow: none;
+                box-shadow: none !important;
+            }
+        </style>
+        
+         <h:form style="text-align: right">
+            <p:commandLink style="text-align: right" action="#{autorcontroller.redirect_autor_pocetna()}">Nazad</p:commandLink>
+            <br></br>
+            <p:commandLink action="#{logincontroller.logout()}">Logout</p:commandLink>
+        </h:form>
+        
+        
+        <h:form>
+            <p:dataTable value="#{autorcontroller.rezultati_testova}" var="rez">
+                <f:facet name="header">
+                    Rezultati testova
+                </f:facet>
+                <p:column headerText="Ime">
+                    #{rez.ime}
+                </p:column>
+                <p:column headerText="Prezime">
+                    #{rez.prezime}
+                </p:column>
+                <p:column headerText="Datum rodjenja">
+                    #{rez.datum}
+                </p:column>
+                <p:column headerText="Poeni">
+                    #{rez.poeniString()}
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

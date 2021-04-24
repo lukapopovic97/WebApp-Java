@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Izmena korisnika</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <h:body>
+            <h:form style="text-align: right">
+                <p:commandLink style="text-align: right" action="#{admincontroller.redirect_admin_pocetna()}">Nazad</p:commandLink>
+                <br/><br/>
+                <p:commandLink action="#{logincontroller.logout()}">Logout</p:commandLink>
+            </h:form>
+            <h:form class="centered-form">
+                <p:panelGrid columns="3">
+                    Ime:
+                    <p:outputLabel id="ime" value="#{admincontroller.korisnikIzmena.ime}"></p:outputLabel>
+                    <p:message for="ime" rendered="true"></p:message>
+                    Prezime:
+                    <p:inputText id="prezime" value="#{admincontroller.korisnikIzmena.prezime}" required="true" requiredMessage="Unesite prezime!"></p:inputText>
+                    <p:message for="prezime" rendered="true"></p:message>
+                    Korisnicko ime:
+                    <p:outputLabel id="username" value="#{admincontroller.korisnikIzmena.username}"></p:outputLabel>
+                    <p:message for="username" rendered="true"></p:message>
+                    Lozinka:
+                    <p:inputText id="password" value="#{admincontroller.korisnikIzmena.password}" required="true" requiredMessage="Unesite sifru!"></p:inputText>
+                    <p:message for="password" rendered="true"></p:message>
+                    Datum rodjenja:
+                    <p:calendar id="datum" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c-10" value="#{admincontroller.korisnikIzmena.datumRodjenja}" required="true" requiredMessage="Unesite datum rodjenja!"></p:calendar>
+                    <p:message for="datum" rendered="true"></p:message>
+                    Mesto rodjenja:
+                    <p:inputText id="mesto" value="#{admincontroller.korisnikIzmena.mestoRodjenja}" required="true" requiredMessage="Unesite mesto rodjenja!"></p:inputText>
+                    <p:message for="mesto" rendered="true"></p:message>
+                    JMBG:
+                    <p:inputText id="jmbg" value="#{admincontroller.korisnikIzmena.JMBG}"  required="true" requiredMessage="Unesite JMBG!"></p:inputText>
+                    <p:message for="jmbg" rendered="true"></p:message>
+                    Kontakt telefon:
+                    <p:inputText id="telefon" value="#{admincontroller.korisnikIzmena.telefon}"  required="true" requiredMessage="Unesite telefon!"></p:inputText>
+                    <p:message for="telefon" rendered="true"></p:message>
+                    E-mail:
+                    <p:inputText id="email" value="#{admincontroller.korisnikIzmena.email}"  required="true" requiredMessage="Unesite e-mail!"></p:inputText>
+                    <p:message for="email" rendered="true"></p:message>
+                    <p:outputLabel></p:outputLabel>
+                    <p:commandButton action="#{admincontroller.sacuvaj()}" value="Sacuvaj"></p:commandButton>
+                </p:panelGrid>
+            </h:form>
+        </h:body>
+    </h:body>
+</html>
+

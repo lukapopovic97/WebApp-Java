@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <style type="text/css">
+            .ui-datatable input {
+                box-sizing: border-box;
+                width: 100%;
+                -webkit-box-shadow: none;
+                box-shadow: none !important;
+            }
+        </style>
+        
+         <h:form style="text-align: right">
+            <p:commandLink style="text-align: right" action="#{autorcontroller.redirect_autor_pocetna()}">Nazad</p:commandLink>
+            <br></br>
+            <p:commandLink action="#{logincontroller.logout()}">Logout</p:commandLink>
+        </h:form>
+        
+        
+        <h:form>
+            <p:dataTable value="#{autorcontroller.rezultati_anketa}" var="rez">
+                <f:facet name="header">
+                    Rezultati anketa
+                </f:facet>
+                <p:column headerText="ID listica">
+                    #{rez.id}
+                </p:column>
+                <p:column headerText="Ime" rendered="#{autorcontroller.personalizovana_anketa_rezultati}">
+                    #{rez.ime}
+                </p:column>
+                <p:column headerText="Prezime" rendered="#{autorcontroller.personalizovana_anketa_rezultati}">
+                    #{rez.prezime}
+                </p:column>
+                <p:column headerText="Datum rodjenja" rendered="#{autorcontroller.personalizovana_anketa_rezultati}">
+                    #{rez.datum}
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Pogledaj odgovore" action="#{autorcontroller.redirect_pregled_odgovora_ankete(rez)}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

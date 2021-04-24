@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <h:form class="centered-form">
+            
+                <h:outputText style="font-size: 20px; font-weight: bold" value="#{ispitanikcontroller.anketaOdgovori.popunjeno()}"></h:outputText>
+                <br/>
+                <p:panelGrid columns="2">
+                    <p:commandButton value="Nazad" action="#{ispitanikcontroller.redirect_nazad_na_anketu()}"></p:commandButton>
+                    <p:commandButton value="Zavrsi" action="#{ispitanikcontroller.anketaOdgovori.zavrsi()}"></p:commandButton>
+                </p:panelGrid>
+            
+        </h:form>
+    </h:body>
+</html>
+

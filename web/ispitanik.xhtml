@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+        </style>
+        <style type="text/css">
+            .ui-datatable input {
+                box-sizing: border-box;
+                width: 100%;
+                -webkit-box-shadow: none;
+                box-shadow: none !important;
+            }
+        </style>
+
+        <h:form style="text-align: right">
+            <p:commandLink action="#{lozinkacontroller.redirect_promenalozinke()}">Promena lozinke</p:commandLink>
+            <br/>
+            <p:commandLink action="#{logincontroller.logout()}">Logout</p:commandLink>
+        </h:form>
+
+        <h:form id="form">
+
+            <p:dataTable var="test" value="#{ispitanikcontroller.testoviPregled}">
+                <f:facet name="header">
+                    Testovi
+                </f:facet>
+                <p:column headerText="Naziv" sortBy="#{test.naziv}">
+                    <h:outputText value="#{test.naziv}" />
+                </p:column>
+                <p:column headerText="Opis">
+                    <h:outputText value="#{test.opis}" />
+                </p:column>
+                <p:column headerText="Trajanje(min)">
+                    <h:outputText value="#{test.trajanje}" />
+                </p:column>
+                <p:column headerText="Datum pocetka" sortBy="#{test.datumPocetka}">
+                    <h:outputText value="#{test.datumPocetka}" />
+                </p:column>
+                <p:column headerText="Datum kraja" sortBy="#{test.datumKraja}">
+                    <h:outputText value="#{test.datumKraja}" />
+                </p:column>
+                <p:column headerText="Autor">
+                    <h:outputText value="#{test.autorUsername}" />
+                </p:column>
+                <p:column>
+                    <p:commandLink update=":form:testDetail" oncomplete="PF('testDialog').show()" value="Opcije">
+                        <h:outputText style="margin:0 auto;"/>
+                        <f:setPropertyActionListener value="#{test}" target="#{ispitanikcontroller.testIzrada}" />
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+
+
+            <p:dialog header="Test Info" widgetVar="testDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="testDetail" style="text-align:center;">
+                    <!--                    <p:panelGrid  columns="2" rendered="# {not empty ispitanikcontroller.testIzrada}" columnClasses="label,value">
+                                            <f:facet name="header">
+                    
+                                            </f:facet>
+                                            <h:outputText value="Naziv:" />
+                                            <h:outputText value="# {ispitanikcontroller.testIzrada.naziv}" />
+                    
+                                            <h:outputText value="Opis:" />
+                                            <h:outputText value="# {ispitanikcontroller.testIzrada.opis}" />
+                    
+                                            <h:outputText value="Vreme izrade:" />
+                                            <h:outputText value="# {ispitanikcontroller.testIzrada.trajanje}" />
+                    
+                                            <h:outputText value="Datum pocetka:" />
+                                            <h:outputText value="# {ispitanikcontroller.testIzrada.datumPocetka}" />
+                    
+                                            <h:outputText value="Datum kraja:" />
+                                            <h:outputText value="# {ispitanikcontroller.testIzrada.datumKraja}" />
+                    
+                                        </p:panelGrid>
+                    -->
+                    <p:panelGrid columns="1" rendered="#{not empty ispitanikcontroller.testIzrada}" style="text-align: center; width: 100%">
+                        <p:commandButton value="Radi" action="#{ispitanikcontroller.radiTest()}" rendered="#{ispitanikcontroller.render_radiT()}" ></p:commandButton>
+                        <p:outputLabel value="Ovaj test vise nije aktivan!" rendered="#{ispitanikcontroller.render_istekao()}"></p:outputLabel>
+                        <p:commandButton value="Rezultat" action="#{ispitanikcontroller.rezultatT()}" rendered="#{ispitanikcontroller.render_rezultatT()}" ></p:commandButton>
+                    </p:panelGrid>
+
+                </p:outputPanel>
+            </p:dialog>
+
+        </h:form>
+        <br/><br/>
+        <h:form id="form2">
+
+            <p:dataTable var="anketa" value="#{ispitanikcontroller.anketePregled}">
+                <f:facet name="header">
+                    Ankete
+                </f:facet>
+                <p:column headerText="Naziv" sortBy="#{anketa.naziv}">
+                    <h:outputText value="#{anketa.naziv}"/>
+                </p:column>
+                <p:column headerText="Personalizovana">
+                    <h:outputText value="#{anketa.personalizovana}"/>
+                </p:column>
+                <p:column headerText="Opis">
+                    <h:outputText value="#{anketa.opis}"/>
+                </p:column>
+                <p:column headerText="Datum pocetka" sortBy="#{anketa.datumPocetka}">
+                    <h:outputText value="#{anketa.datumPocetka}"/>
+                </p:column>
+                <p:column headerText="Datum kraja" sortBy="#{anketa.datumKraja}">
+                    <h:outputText value="#{anketa.datumKraja}"/>
+                </p:column>
+                <p:column headerText="Autor">
+                    <h:outputText value="#{anketa.autorUsername}"/>
+                </p:column>
+                <p:column>
+                    <p:commandLink update=":form2:anketaDetail" oncomplete="PF('anketaDialog').show()" value="Opcije">
+                        <h:outputText style="margin:0 auto;"/>
+                        <f:setPropertyActionListener value="#{anketa}" target="#{ispitanikcontroller.anketaIzrada}" />
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+
+            <!--            <p:dataGrid var="anketa" value="# {ispitanikcontroller.anketePregled}" columns="3" layout="grid"
+                                    rows="6" paginator="true" id="ankete"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    rowsPerPageTemplate="6,12,16">
+            
+                            <f:facet name="header">
+                                Ankete
+                            </f:facet>
+            
+                            <p:panel header="# {anketa.naziv}" style="text-align:center">
+                                <h:panelGrid columns="1" style="width:100%">
+                                    <p:outputLabel value="# {anketa.opis}"></p:outputLabel>
+                                    <p:commandLink update=":form2:anketaDetail" oncomplete="PF('anketaDialog').show()" value="Detalji">
+                                        <h:outputText style="margin:0 auto;"/>
+                                        <f:setPropertyActionListener value="# {anketa}" target="# {ispitanikcontroller.anketaIzrada}" />
+                                    </p:commandLink>
+                                </h:panelGrid>
+                            </p:panel>
+            
+                        </p:dataGrid>
+            -->
+                        <p:dialog header="Anketa Info" widgetVar="anketaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="anketaDetail" style="text-align:center;">
+<!--                                <p:panelGrid  columns="2" rendered="# {not empty ispitanikcontroller.anketaIzrada}" columnClasses="label,value">
+                                    <f:facet name="header">
+            
+                                    </f:facet>
+                                    <h:outputText value="Naziv:" />
+                                    <h:outputText value="# {ispitanikcontroller.anketaIzrada.naziv}" />
+            
+                                    <h:outputText value="Opis:" />
+                                    <h:outputText value="# {ispitanikcontroller.anketaIzrada.opis}" />
+            
+                                    <h:outputText value="Personalizovana:" />
+                                    <h:outputText value="# {ispitanikcontroller.anketaIzrada.personalizovana}" />
+            
+                                    <h:outputText value="Datum pocetka:" />
+                                    <h:outputText value="# {ispitanikcontroller.anketaIzrada.datumPocetka}" />
+            
+                                    <h:outputText value="Datum kraja:" />
+                                    <h:outputText value="# {ispitanikcontroller.anketaIzrada.datumKraja}" />
+            
+                                </p:panelGrid>
+-->
+                                <p:panelGrid columns="1" rendered="#{not empty ispitanikcontroller.anketaIzrada}" style="text-align: center; width: 100%">
+                                    <p:commandButton value="Radi" action="#{ispitanikcontroller.radiAnketu()}" rendered="#{ispitanikcontroller.render_radiA()}" ></p:commandButton>
+                                    <p:outputLabel value="Ova anketa vise nije aktivna!" rendered="#{ispitanikcontroller.render_istekla()}"></p:outputLabel>
+                                    <p:commandButton value="Rezultat" action="#{ispitanikcontroller.rezultatA()}" rendered="#{ispitanikcontroller.render_rezultatA()}" ></p:commandButton>
+                                </p:panelGrid>
+            
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </h:body>
+            </html>
+            

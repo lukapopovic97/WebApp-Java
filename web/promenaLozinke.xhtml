@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+    <h:body>
+
+        <h:form class="centered-form" id="form">
+            <p:panelGrid columns="3">
+                Stara lozinka:
+                <p:password id="password" value="#{lozinkacontroller.staraLozinka}" required="true" requiredMessage="Unesite lozinku!" validatorMessage="Lozinka ne odgovara sablonu">
+                    <f:validateRegex pattern="^(?=.{8,}$)(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9])([a-zA-Z]\S*)$" />
+                </p:password>
+                <p:message for="password" rendered="true"></p:message>
+                Nova lozinka:
+                <p:password id="nova_lozinka" value="#{lozinkacontroller.novaLozinka}" required="true" requiredMessage="Ponovite lozinku" validatorMessage="Lozinka ne odgovara sablonu">
+                    <f:validateRegex pattern="^(?=.{8,}$)(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9])([a-zA-Z]\S*)$" />
+                </p:password>
+                <p:message for="nova_lozinka" rendered="true"></p:message>
+                Potvrda lozinke:
+                <p:password id="potvrda_lozinke" value="#{lozinkacontroller.potvrdaLozinke}" required="true" requiredMessage="Ponovite lozinku" validatorMessage="Lozinka ne odgovara sablonu">
+                    <f:validateRegex pattern="^(?=.{8,}$)(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9])([a-zA-Z]\S*)$" />
+                </p:password>
+                <p:message for="potvrda_lozinke" rendered="true"></p:message>
+                <p:outputLabel></p:outputLabel>
+                <p:commandButton value="Promeni" action="#{lozinkacontroller.promeniLozinku()}" update="form"></p:commandButton>
+            </p:panelGrid>
+
+            <h:outputText value="#{lozinkacontroller.poruka}" style="color: red; font-size: 20px"/>
+
+        </h:form>        
+    </h:body>
+</html>
+

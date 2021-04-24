@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <style type="text/css">
+            .logo {
+                width: 5%
+            }
+
+            .detail {
+                width: 95%;
+                padding-left: 25px;
+            }
+
+            .detail td {
+                font-size: 24px;
+            }
+
+            .ui-datascroller .ui-datascroller-item {
+                border-bottom: 1px solid #A8A8A8;
+                padding: 25px 10px;
+                /* with the exported variables from Nova and Luna Themes*/
+
+            }
+        </style>
+
+
+        <h:form id="form1" class="centered-form"> 
+            <h:outputText id="txt_count" value="#{ispitanikcontroller.testOdgovori.sekunde}" style="font-weight: bold; font-size: 20px"  />
+            <br/>
+            <h:outputText id="poruka" value="#{ispitanikcontroller.testOdgovori.poruka}" style="font-size: 20px; font-weight: bold; color: red;"></h:outputText>
+            <p:poll interval="1" listener="#{ispitanikcontroller.testOdgovori.decr()}" update="txt_count poruka" />
+            
+            <p:dataScroller value="#{ispitanikcontroller.testOdgovori.odgovori}" var="p">
+
+                <f:facet name="header">
+                    #{ispitanikcontroller.testIzrada.naziv}
+                </f:facet>
+
+                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+
+                    <p:outputPanel>
+                        <h:panelGrid columns="1" cellpadding="5">
+
+                            <h:outputText value="#{p.pitanje.tekst_pitanja}"/>
+
+                            <p:inputText value="#{p.odgovori}" rendered="#{p.pitanje.tip=='1'}"></p:inputText>
+
+                            <p:inputNumber value="#{p.odgovori}" rendered="#{p.pitanje.tip=='2'}"></p:inputNumber>
+
+                            <p:selectOneRadio value="#{p.odgovori}" rendered="#{p.pitanje.tip=='4'}">
+                                <f:selectItems value="#{ispitanikcontroller.postaviPonudjeneOdgovore(p.pitanje)}"></f:selectItems>
+                            </p:selectOneRadio>
+
+                            <h:selectManyCheckbox value="#{p.nizOdgovora}" rendered="#{p.pitanje.tip=='5'}">
+                                <f:selectItems value="#{ispitanikcontroller.postaviPonudjeneOdgovore(p.pitanje)}"></f:selectItems>
+                            </h:selectManyCheckbox>
+
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+
+            <p:commandButton value="Zavrsi" action="#{ispitanikcontroller.redirect_progress_bar_test()}" update="form1"></p:commandButton>
+
+
+
+        </h:form>
+
+
+    </h:body>
+</html>
+
+

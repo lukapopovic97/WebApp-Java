@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Autor</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+
+    <h:body>
+        <style type="text/css">
+            .ui-datatable input {
+                box-sizing: border-box;
+                width: 100%;
+                -webkit-box-shadow: none;
+                box-shadow: none !important;
+            }
+        </style>
+
+
+        <h:form style="text-align: right">
+            <p:commandLink action="#{logincontroller.logout()}">Logout</p:commandLink>
+            <br/>
+            <p:commandLink action="#{lozinkacontroller.redirect_promenalozinke()}">Promena lozinke</p:commandLink>
+        </h:form>
+        <h:form class="centered-form">
+            <p:commandLink action="#{autorcontroller.redirect_novi_test()}">Novi test</p:commandLink>
+            &nbsp;&nbsp;&nbsp;
+            <p:commandLink action="#{autorcontroller.redirect_nova_anketa()}">Nova anketa</p:commandLink>
+        </h:form>
+        
+        
+        <h:form id="form1">
+            <p:dataTable value="#{autorcontroller.testoviPregled}" var="test" style="width: 100%">
+                <f:facet name="header">
+                    Testovi
+                </f:facet>
+                <p:column headerText="Naziv" sortBy="#{test.naziv}">
+                    <h:outputText value="#{test.naziv}" />
+                </p:column>
+                <p:column headerText="Opis">
+                    <h:outputText value="#{test.opis}" />
+                </p:column>
+                <p:column headerText="Trajanje(min)">
+                    <h:outputText value="#{test.trajanje}" />
+                </p:column>
+                <p:column headerText="Datum pocetka" sortBy="#{test.datumPocetka}">
+                    <h:outputText value="#{test.datumPocetka}" />
+                </p:column>
+                <p:column headerText="Datum kraja" sortBy="#{test.datumKraja}">
+                    <h:outputText value="#{test.datumKraja}" />
+                </p:column>
+                <p:column headerText="Autor">
+                    <h:outputText value="#{test.autorUsername}" />
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Pregledaj" action="#{autorcontroller.redirect_test_pregled(test)}"></p:commandButton>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Rezultati" action="#{autorcontroller.redirect_rezultatiT(test)}"></p:commandButton>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Obrisi" rendered="#{autorcontroller.render_obrisiT(test)}" action="#{autorcontroller.obrisiTest(test)}" update="form1"></p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="form2">
+            <p:dataTable value="#{autorcontroller.anketePregled}" var="anketa" style="width: 100%">
+                <f:facet name="header">
+                    Ankete
+                </f:facet>
+                <p:column headerText="Naziv" sortBy="#{anketa.naziv}">
+                    <h:outputText value="#{anketa.naziv}"/>
+                </p:column>
+                <p:column headerText="Personalizovana">
+                    <h:outputText value="#{anketa.personalizovana}"/>
+                </p:column>
+                <p:column headerText="Opis">
+                    <h:outputText value="#{anketa.opis}"/>
+                </p:column>
+                <p:column headerText="Datum pocetka" sortBy="#{anketa.datumPocetka}">
+                    <h:outputText value="#{anketa.datumPocetka}"/>
+                </p:column>
+                <p:column headerText="Datum kraja" sortBy="#{anketa.datumKraja}">
+                    <h:outputText value="#{anketa.datumKraja}"/>
+                </p:column>
+                <p:column headerText="Autor">
+                    <h:outputText value="#{anketa.autorUsername}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Pregledaj" action="#{autorcontroller.redirect_anketa_pregled(anketa)}"></p:commandButton>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Popunjeni listici" action="#{autorcontroller.redirect_rezultatiA(anketa)}"></p:commandButton>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Obrisi" rendered="#{autorcontroller.render_obrisiA(anketa)}" action="#{autorcontroller.obrisiAnketu(anketa)}" update="form2"></p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

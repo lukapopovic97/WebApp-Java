@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <h:form style="text-align: right">
+            <p:commandLink style="text-align: right" action="#{autorcontroller.ponisti_i_redirect_autor_pocetna()}">Nazad</p:commandLink>
+            <br></br>
+            <p:commandLink action="#{logincontroller.logout()}">Logout</p:commandLink>
+        </h:form>
+        <h:form id="form1" class="centered-form">
+            <p:panelGrid columns="3" id="pgr1">
+                <p:outputLabel value="Naziv ankete::"></p:outputLabel>
+                <p:inputText id="naziv" value="#{autorcontroller.novaAnketa.naziv}" required="true" requiredMessage="Ovo polje je obavezno!"></p:inputText>
+                <p:message for="naziv" rendered="true"></p:message>
+
+                <p:outputLabel value="Opis:"></p:outputLabel>
+                <p:inputTextarea id="opis" value="#{autorcontroller.novaAnketa.opis}" required="true" requiredMessage="Ovo polje je obavezno!"></p:inputTextarea>
+                <p:message for="opis" rendered="true"></p:message>
+
+                <p:outputLabel value="Datum pocetka ankete:"></p:outputLabel>
+                <p:calendar id="datumPocetka" navigator="true" pattern="dd/MM/yyyy HH:mm:ss" value="#{autorcontroller.novaAnketa.datumPocetka}" showHour="true" showMinute="true" required="true" requiredMessage="Ovo polje je obavezno"></p:calendar>
+                <p:message for="datumPocetka" rendered="true"></p:message>
+
+                <p:outputLabel value="Datum kraja ankete:"></p:outputLabel>
+                <p:calendar id="datumKraja" navigator="true" pattern="dd/MM/yyyy HH:mm:ss" value="#{autorcontroller.novaAnketa.datumKraja}" showHour="true" showMinute="true" required="true" requiredMessage="Ovo polje je obavezno"></p:calendar>
+                <p:message for="datumKraja" rendered="true"></p:message>
+
+                <p:outputLabel value="Personalizovana:"></p:outputLabel>
+                <p:selectOneMenu id="personalizovana" value="#{autorcontroller.novaAnketa.personalizovana}" required="true" requiredMessage="Ovo polje je obavezno!">
+                    <f:selectItem itemLabel="Ne" itemValue="false"></f:selectItem>
+                    <f:selectItem itemLabel="Da" itemValue="true"></f:selectItem>
+                </p:selectOneMenu>
+                <p:message for="personalizovana" rendered="true"></p:message>
+                
+                <p:commandButton value="Kreiraj anketu" action="#{autorcontroller.kreiraj_anketu()}" rendered="#{autorcontroller.broj_pitanja != 0}" update="form1"></p:commandButton>
+            </p:panelGrid>
+        </h:form>
+        <h:form id="form2" class="centered-form">
+            <p:panelGrid columns="3" id="pgr2">
+                <p:outputLabel value="Izaberite tip odgovora:"></p:outputLabel>
+                <p:selectOneMenu id="tip" value="#{autorcontroller.pitanjeA.tip}" required="true" requiredMessage="Ovo polje je obavezno!">
+                    <f:selectItem itemLabel="Unos teksta" itemValue="1"></f:selectItem>
+                    <f:selectItem itemLabel="Unos broja" itemValue="2"></f:selectItem>
+                    <f:selectItem itemLabel="TextArea" itemValue="3"></f:selectItem>
+                    <f:selectItem itemLabel="Radio button" itemValue="4"></f:selectItem>
+                    <f:selectItem itemLabel="Checkbox" itemValue="5"></f:selectItem>
+                </p:selectOneMenu>
+                <p:message for="tip" rendered="true"></p:message>
+
+                <p:outputLabel value="Tekst pitanja:"></p:outputLabel>
+                <p:inputText id="tekst_pitanja" value="#{autorcontroller.pitanjeA.tekst_pitanja}" required="true" requiredMessage="Ovo polje je obavezno!"></p:inputText>
+                <p:message for="tekst_pitanja" rendered="true"></p:message>
+
+                <p:outputLabel for="ponudjeni_odgovori" value="Ponudjeni odgovori:"></p:outputLabel>
+                <p:chips id="ponudjeni_odgovori" value="#{autorcontroller.ponudjeni_odgovori}"></p:chips>
+                <p:message for="ponudjeni_odgovori" rendered="true"></p:message>
+                
+                <p:outputLabel value="Obavezno:"></p:outputLabel>
+                <p:selectOneMenu id="obavezno" value="#{autorcontroller.pitanjeA.obavezno}" required="true" requiredMessage="Ovo polje je obavezno!">
+                    <f:selectItem itemLabel="Ne" itemValue="false"></f:selectItem>
+                    <f:selectItem itemLabel="Da" itemValue="true"></f:selectItem>
+                </p:selectOneMenu>
+                <p:message for="obavezno" rendered="true"></p:message>
+                
+                <p:commandButton value="Dodaj pitanje" action="#{autorcontroller.dodajPitanjeA()}" update="form2 form1"></p:commandButton>
+            </p:panelGrid>
+            <p:repeat value="#{autorcontroller.pitanjaA}" var="p" rendered="#{autorcontroller.pitanjaA.size() != 0}">
+                <p:panel header="#{p.tekst_pitanja}">
+                    <p:dataList value="#{p.listaPonudjenihOdgovora()}" var="odg" rendered="#{not empty p.listaPonudjenihOdgovora()}">
+                        #{odg}
+                    </p:dataList>
+                </p:panel>
+            </p:repeat>
+
+        </h:form>
+        <h:form class="centered-form">
+            <p:commandLink action="#{autorcontroller.redirect_postojeca_pitanjaA()}">Dodaj postojece pitanje</p:commandLink>
+        </h:form>
+    </h:body>
+</html>
+

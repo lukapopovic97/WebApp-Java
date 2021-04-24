@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registracija</title>
+        <h:outputStylesheet name="my_css_file.css"></h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <h:form style="text-align: right">
+            <p:commandLink action="#{registracijacontroller.redirect_index()}" value="Nazad"></p:commandLink>
+        </h:form>
+        <h:form class="centered-form" id="form">
+            <p:panelGrid columns="3" id="pgr">
+                Ime:
+                <p:inputText id="ime" value="#{registracijacontroller.zahtev.ime}" required="true" requiredMessage="Unesite ime!"></p:inputText>
+                <p:message for="ime" rendered="true"></p:message>
+                Prezime
+                <p:inputText id="prezime" value="#{registracijacontroller.zahtev.prezime}" required="true" requiredMessage="Unesite prezime!"></p:inputText>
+                <p:message for="prezime" rendered="true"></p:message>
+                Korisnicko ime:
+                <p:inputText id="username" value="#{registracijacontroller.zahtev.username}" required="true" requiredMessage="Unesite korisnicko ime!"></p:inputText>
+                <p:message for="username" rendered="true"></p:message>
+                Lozinka:
+                <p:password id="password" value="#{registracijacontroller.zahtev.password}" required="true" requiredMessage="Unesite lozinku!" validatorMessage="Lozinka ne odgovara sablonu">
+                    <f:validateRegex pattern="^(?=.{8,}$)(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9])([a-zA-Z]\S*)$" />
+                </p:password>
+                <p:message for="password" rendered="true"></p:message>
+                Potvrda lozinke:
+                <p:password id="potvrda_lozinke" value="#{registracijacontroller.zahtev.potvrdaLozinke}" required="true" requiredMessage="Ponovite lozinku" validatorMessage="Lozinka ne odgovara sablonu">
+                    <f:validateRegex pattern="^(?=.{8,}$)(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9])([a-zA-Z]\S*)$" />
+                </p:password>
+                <p:message for="potvrda_lozinke" rendered="true"></p:message>
+                Datum rodjenja:
+                <p:calendar id="datum" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c+100" value="#{registracijacontroller.zahtev.datumRodjenja}" required="true" requiredMessage="Unesite datum rodjenja!"></p:calendar>
+                <p:message for="datum" rendered="true"></p:message>
+                Mesto rodjenja:
+                <p:inputText id="mesto" value="#{registracijacontroller.zahtev.mestoRodjenja}" required="true" requiredMessage="Unesite mesto rodjenja!"></p:inputText>
+                <p:message for="mesto" rendered="true"></p:message>
+                JMBG:
+                <p:inputText id="jmbg" value="#{registracijacontroller.zahtev.JMBG}"  required="true" requiredMessage="Unesite JMBG!" validatorMessage="JMBG sadrzi tacno 13 cifara!">
+                    <f:validateLength minimum="13" maximum="13"/>
+                </p:inputText>
+                <p:message for="jmbg" rendered="true"></p:message>
+                Kontakt telefon:
+                <p:inputText id="telefon" value="#{registracijacontroller.zahtev.telefon}"  required="true" requiredMessage="Unesite telefon!" validatorMessage="Telefon mora imati izmedju 9 i 13 cifara!">
+                    <f:validateLength minimum="9" maximum="13"/></p:inputText>
+                <p:message for="telefon" rendered="true"></p:message>
+                E-mail:
+                <p:inputText id="email" value="#{registracijacontroller.zahtev.email}"  required="true" requiredMessage="Unesite e-mail!" validatorMessage="Unesite validan e-mail!">
+                    <f:validateRegex pattern="^[a-zA-Z0-9.!#$%'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
+                </p:inputText>
+                <p:message for="email" rendered="true"></p:message>
+                <p:outputLabel></p:outputLabel>
+                <p:commandButton action="#{registracijacontroller.registracija()}" value="Registracija" update="form"></p:commandButton>
+            </p:panelGrid>    
+            <h:outputText value="#{registracijacontroller.poruka}" style="color: red; font-size: 20px"/>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+        </style>
+
+
+        <h:form id="form1">
+            <p:dataGrid var="p" value="#{ispitanikcontroller.anketaOdgovori.odgovori}" columns="1"
+                        rows="0" paginator="true" id="pitanja"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="0,6,12,16">
+                
+                <f:facet name="header">
+                    #{ispitanikcontroller.anketaIzrada.naziv}
+                </f:facet>
+
+                <p:panel header="#{p.pitanje.tekst_pitanja}">
+                    <h:panelGrid columns="2" style="width:100%">
+                        <p:inputText id="txt" value="#{p.odgovori}" rendered="#{p.pitanje.tip=='1'}" required="#{p.pitanje.obavezno}" requiredMessage="Ovo pitanje je obavezo"></p:inputText>
+                        <p:message for="txt" rendered="true"></p:message>
+                        
+                        <p:inputNumber id="num" value="#{p.odgovori}" rendered="#{p.pitanje.tip=='2'}" required="#{p.pitanje.obavezno}" requiredMessage="Ovo pitanje je obavezo"></p:inputNumber>
+                        <p:message for="num" rendered="true"></p:message>
+                        
+                        <p:inputTextarea id="txa" value="#{p.odgovori}" rendered="#{p.pitanje.tip=='3'}" required="#{p.pitanje.obavezno}" requiredMessage="Ovo pitanje je obavezo"></p:inputTextarea>
+                        <p:message for="txa" rendered="true"></p:message>
+                        
+                        <p:selectOneRadio id="rad" value="#{p.odgovori}" rendered="#{p.pitanje.tip=='4'}" required="#{p.pitanje.obavezno}" requiredMessage="Ovo pitanje je obavezo">
+                            <f:selectItems value="#{p.pitanje.listaPonudjenihOdgovora()}" rendered="#{not empty p.pitanje.listaPonudjenihOdgovora()}"></f:selectItems>
+                        </p:selectOneRadio>
+                        <p:message for="rad" rendered="true"></p:message>
+                        
+                        <h:selectManyCheckbox id="chk" value="#{p.nizOdgovora}" rendered="#{p.pitanje.tip=='5'}" required="#{p.pitanje.obavezno}" requiredMessage="Ovo pitanje je obavezo">
+                            <f:selectItems value="#{p.pitanje.listaPonudjenihOdgovora()}" rendered="#{not empty p.pitanje.listaPonudjenihOdgovora()}"></f:selectItems>
+                        </h:selectManyCheckbox>
+                        <p:message for="chk" rendered="true"></p:message>
+                        
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>
+            
+            <p:commandButton value="Zavrsi" action="#{ispitanikcontroller.redirect_progress_bar_anketa()}" update="form1"></p:commandButton>
+        </h:form>
+    </h:body>
+</html>
+
